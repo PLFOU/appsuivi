@@ -13,8 +13,6 @@ def init_db():
     c.execute('''CREATE TABLE IF NOT EXISTS measures (
                     date TEXT PRIMARY KEY,
                     poids REAL,
-                    taille REAL,
-                    poitrine REAL
                 )''')
     conn.commit()
     conn.close()
@@ -22,8 +20,8 @@ def init_db():
 def add_measurement(date_str, poids, taille, poitrine):
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
-    c.execute("INSERT OR REPLACE INTO measures (date, poids, taille, poitrine) VALUES (?, ?, ?, ?)",
-              (date_str.isoformat(), poids, taille, poitrine))
+    c.execute("INSERT OR REPLACE INTO measures (date, poids) VALUES (?, ?)",
+              (date_str.isoformat(), poids))
     conn.commit()
     conn.close()
 
